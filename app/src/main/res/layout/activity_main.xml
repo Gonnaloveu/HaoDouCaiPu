@@ -4,10 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.lsx.haodoucaipu.MainActivity">
 
+    <RadioGroup
+        android:id="@+id/menu_rg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
+
+        <RadioButton
+            style="@style/MenuRadioButton"
+            android:drawableTop="@drawable/caipu_selector"
+            android:text="菜谱"/>
+
+        <RadioButton
+            style="@style/MenuRadioButton"
+            android:drawableTop="@drawable/daojia_selector"
+            android:text="到家"/>
+
+        <RadioButton
+            style="@style/MenuRadioButton"
+            android:drawableTop="@drawable/guangchang_selector"
+            android:text="广场"/>
+
+        <RadioButton
+            style="@style/MenuRadioButton"
+            android:drawableTop="@drawable/wode_selector"
+            android:text="我的"/>
+    </RadioGroup>
 </RelativeLayout>
