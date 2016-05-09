@@ -31,7 +31,7 @@ public abstract class BaseFragment extends Fragment {
         init();
     }
 
-    private void init() {
+    protected void init() {
 
     }
 }

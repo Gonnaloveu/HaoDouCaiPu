@@ -5,6 +5,8 @@ import android.view.View;
 
 import com.lsx.haodoucaipu.R;
 
+import butterknife.ButterKnife;
+
 /**
  * Created by Administrator on 2016/5/8.
  */
@@ -16,6 +18,12 @@ public class CaiPuFragment extends BaseFragment {
     @Override
     public View initView() {
         View view = View.inflate(activity, R.layout.caipu_content,null);
+        ButterKnife.bind(view);
         return view;
+    }
+
+    @Override
+    protected void init() {
+        super.init();
     }
 }

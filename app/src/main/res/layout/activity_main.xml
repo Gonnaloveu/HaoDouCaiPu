@@ -8,10 +8,21 @@
     tools:context="com.lsx.haodoucaipu.MainActivity">
 
     <RelativeLayout
-        android:id="@+id/content_main"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1">
+
+        <RelativeLayout
+            android:id="@+id/content_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <ImageView
+            android:id="@+id/loading_iv"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+
 
     <RadioGroup
         android:id="@+id/menu_rg"
