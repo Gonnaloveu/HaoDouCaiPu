@@ -23,9 +23,9 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.menu_rg)
     RadioGroup menuRg;
     @BindView(R.id.loading_iv)
-    ImageView loadingIv;
+    public ImageView loadingIv;
 
-    LoadingDrawable loadingDrawable;
+    public LoadingDrawable loadingDrawable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

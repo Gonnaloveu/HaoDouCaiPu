@@ -8,13 +8,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.lsx.haodoucaipu.MainActivity;
+
 /**
  * Created by Administrator on 2016/5/8.
  */
 public abstract class BaseFragment extends Fragment {
-    protected Activity activity;
+    protected MainActivity activity;
     public BaseFragment(Activity activity) {
-        this.activity=activity;
+        this.activity= (MainActivity) activity;
     }
 
     @Nullable
