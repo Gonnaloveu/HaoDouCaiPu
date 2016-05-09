@@ -1,36 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.lsx.haodoucaipu.MainActivity">
+
+    <RelativeLayout
+        android:id="@+id/content_main"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 
     <RadioGroup
         android:id="@+id/menu_rg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
 
         <RadioButton
+            android:id="@+id/caipu_menu"
             style="@style/MenuRadioButton"
             android:drawableTop="@drawable/caipu_selector"
             android:text="菜谱"/>
 
         <RadioButton
+            android:id="@+id/daojia_menu"
             style="@style/MenuRadioButton"
             android:drawableTop="@drawable/daojia_selector"
             android:text="到家"/>
 
         <RadioButton
+            android:id="@+id/guangchang_menu"
             style="@style/MenuRadioButton"
             android:drawableTop="@drawable/guangchang_selector"
             android:text="广场"/>
 
         <RadioButton
+            android:id="@+id/wode_menu"
             style="@style/MenuRadioButton"
             android:drawableTop="@drawable/wode_selector"
             android:text="我的"/>
     </RadioGroup>
-</RelativeLayout>
+</LinearLayout>
