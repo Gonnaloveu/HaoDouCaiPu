@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+
+
+    <!-- 间隔 padding-->
+    <padding
+            android:left="8dp"
+            android:top="8dp"
+            android:right="8dp"
+            android:bottom="8dp"/><!-- 各方向的间隔 -->
+
+    <!-- 大小 size-->
+    <size
+            android:width="8dp"
+            android:height="8dp"/><!-- 宽度和高度 -->
+
+    <!-- 填充 solid-->
+    <solid
+            android:color="@color/dot1"/><!-- 填充的颜色 -->
+
+</shape>
