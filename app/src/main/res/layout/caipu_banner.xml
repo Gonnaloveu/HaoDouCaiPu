@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+    <com.bigkoo.convenientbanner.ConvenientBanner
+        android:id="@+id/convenientBanner"
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        app:canLoop="true"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/search_btn_caipu"
+            android:layout_width="360dp"
+            android:layout_height="30dp"
+            android:background="@drawable/search_button_caipu"
+            android:drawableLeft="@drawable/action_search_white"
+            android:gravity="center_vertical"
+            android:text="搜索菜谱、专辑、豆友"
+            android:textColor="#ffffff"
+            android:textSize="12dp"/>
+
+        <Button
+            android:id="@+id/feilei_btn_caipu"
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/bar_category_foreground"/>
+    </LinearLayout>
+
+</RelativeLayout>

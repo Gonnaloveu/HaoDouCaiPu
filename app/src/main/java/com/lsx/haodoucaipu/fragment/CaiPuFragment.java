@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
@@ -19,6 +21,7 @@ import com.lsx.haodoucaipu.R;
 import com.lsx.haodoucaipu.constant.Const;
 import com.lsx.haodoucaipu.gson.caipu.CaiPuJson;
 import com.lsx.haodoucaipu.gson.caipu.CaiPuJsonResultRecipeList;
+import com.lsx.haodoucaipu.gson.caipu.CaiPuJsonResultToolsList;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.io.IOException;
@@ -39,6 +42,8 @@ import okhttp3.Response;
 public class CaiPuFragment extends BaseFragment {
     @BindView(R.id.convenientBanner)
     ConvenientBanner convenientBanner;
+    @BindView(R.id.caipu_menu_ll)
+    LinearLayout caipuMenuLl;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -90,11 +95,8 @@ public class CaiPuFragment extends BaseFragment {
             public void run() {
                 Gson gson = new Gson();
                 CaiPuJson caiPuJson = gson.fromJson(s, CaiPuJson.class);
-                CaiPuJsonResultRecipeList[] list = caiPuJson.getResult().getRecipe().getList();
-                ArrayList<CaiPuJsonResultRecipeList> arrayList = new ArrayList<>();
-                Collections.addAll(arrayList, list);
                 Message message = handler.obtainMessage(1);
-                message.obj = arrayList;
+                message.obj = caiPuJson;
                 message.sendToTarget();
             }
         });
@@ -108,7 +110,11 @@ public class CaiPuFragment extends BaseFragment {
             switch (msg.what) {
                 case 1:
                     //连接网络成功
-                    ArrayList<CaiPuJsonResultRecipeList> arrayList = (ArrayList<CaiPuJsonResultRecipeList>) msg.obj;
+                    CaiPuJson caiPuJson = (CaiPuJson) msg.obj;
+                    //设置banner
+                    CaiPuJsonResultRecipeList[] list = caiPuJson.getResult().getRecipe().getList();
+                    ArrayList<CaiPuJsonResultRecipeList> arrayList = new ArrayList<>();
+                    Collections.addAll(arrayList, list);
                     convenientBanner.setPages(new CBViewHolderCreator<ImageHolderView>() {
                         @Override
                         public ImageHolderView createHolder() {
@@ -116,6 +122,21 @@ public class CaiPuFragment extends BaseFragment {
                         }
                     }, arrayList).setPageIndicator(new int[]{R.drawable.dot1, R.drawable.dot2});
                     convenientBanner.startTurning(5000);
+                    //设置banner下方按钮
+                    ArrayList<CaiPuJsonResultToolsList> toolsLists = new ArrayList<>();
+                    Collections.addAll(toolsLists, caiPuJson.getResult().getTools().getList());
+                    for (int i = 0; i < toolsLists.size(); i++) {
+                        View view = View.inflate(activity, R.layout.caipu_menu_button, null);
+                        ImageView toolsiv = (ImageView) view.findViewById(R.id.cp_btn_iv);
+                        ImageLoader.getInstance().displayImage(toolsLists.get(i).getImg(), toolsiv);
+                        TextView toolstv = (TextView) view.findViewById(R.id.cp_btn_tv);
+                        toolstv.setText(toolsLists.get(i).getTitle());
+                        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                                ViewGroup.LayoutParams.WRAP_CONTENT, 1);
+                        view.setLayoutParams(lp);
+                        caipuMenuLl.addView(view);
+
+                    }
                     break;
                 case 2:
                     //连接网络失败
@@ -146,7 +167,6 @@ public class CaiPuFragment extends BaseFragment {
 
         @Override
         public void UpdateUI(Context context, int position, CaiPuJsonResultRecipeList data) {
-
             ImageLoader.getInstance().displayImage(data.getImg(), iv);
         }
     }
