@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.lsx.haodoucaipu.MainActivity">
+    tools:context="com.lsx.haodoucaipu.MainActivity"
+    android:background="#a6a6a6">
 
     <RelativeLayout
         android:layout_width="match_parent"

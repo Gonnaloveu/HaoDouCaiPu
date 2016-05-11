@@ -8,6 +8,7 @@ import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,6 +21,9 @@ import com.google.gson.Gson;
 import com.lsx.haodoucaipu.R;
 import com.lsx.haodoucaipu.constant.Const;
 import com.lsx.haodoucaipu.gson.caipu.CaiPuJson;
+import com.lsx.haodoucaipu.gson.caipu.CaiPuJsonResult;
+import com.lsx.haodoucaipu.gson.caipu.CaiPuJsonResultAlbum;
+import com.lsx.haodoucaipu.gson.caipu.CaiPuJsonResultAlbumList;
 import com.lsx.haodoucaipu.gson.caipu.CaiPuJsonResultRecipeList;
 import com.lsx.haodoucaipu.gson.caipu.CaiPuJsonResultToolsList;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -44,6 +48,14 @@ public class CaiPuFragment extends BaseFragment {
     ConvenientBanner convenientBanner;
     @BindView(R.id.caipu_menu_ll)
     LinearLayout caipuMenuLl;
+    @BindView(R.id.hot_title_iv)
+    ImageView hotTitleIv;
+    @BindView(R.id.hot_title_tv)
+    TextView hotTitleTv;
+    @BindView(R.id.hot_title_btn)
+    Button hotTitleBtn;
+    @BindView(R.id.hot_content_ll)
+    LinearLayout hotContentLl;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -111,6 +123,7 @@ public class CaiPuFragment extends BaseFragment {
                 case 1:
                     //连接网络成功
                     CaiPuJson caiPuJson = (CaiPuJson) msg.obj;
+                    CaiPuJsonResult caiPuJsonResult = caiPuJson.getResult();
                     //设置banner
                     CaiPuJsonResultRecipeList[] list = caiPuJson.getResult().getRecipe().getList();
                     ArrayList<CaiPuJsonResultRecipeList> arrayList = new ArrayList<>();
@@ -131,12 +144,36 @@ public class CaiPuFragment extends BaseFragment {
                         ImageLoader.getInstance().displayImage(toolsLists.get(i).getImg(), toolsiv);
                         TextView toolstv = (TextView) view.findViewById(R.id.cp_btn_tv);
                         toolstv.setText(toolsLists.get(i).getTitle());
-                        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                                ViewGroup.LayoutParams.WRAP_CONTENT, 1);
+                        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams
+                                .WRAP_CONTENT, 1);
                         view.setLayoutParams(lp);
                         caipuMenuLl.addView(view);
-
                     }
+                    /*热门推荐*/
+                    CaiPuJsonResultAlbum album = caiPuJsonResult.getAlbum();
+                    ImageLoader.getInstance().displayImage(album.getIcon(), hotTitleIv);
+                    hotTitleTv.setText(album.getName());
+                    ArrayList<CaiPuJsonResultAlbumList> albumLists = new ArrayList<>();
+                    Collections.addAll(albumLists, album.getList());
+                    for (int i = 0; i < albumLists.size(); i++) {
+                        View hotCaiPuView = View.inflate(activity, R.layout.re_men_caipu, null);
+                        ImageView hotBigIv = (ImageView) hotCaiPuView.findViewById(R.id.hot_big_iv);
+                        hotBigIv.setScaleType(ImageView.ScaleType.FIT_XY);
+                        ImageView hotLtIv1 = (ImageView) hotCaiPuView.findViewById(R.id.hot_lt_iv1);
+                        ImageView hotLtIv2 = (ImageView) hotCaiPuView.findViewById(R.id.hot_lt_iv2);
+                        ImageView hotLtIv3 = (ImageView) hotCaiPuView.findViewById(R.id.hot_lt_iv3);
+                        TextView hotTv = (TextView) hotCaiPuView.findViewById(R.id.hot_tv);
+                        CaiPuJsonResultAlbumList al = albumLists.get(i);
+                        ImageLoader.getInstance().displayImage(al.getImg(),hotBigIv);
+                        hotTv.setText(al.getTitle());
+                        ImageLoader.getInstance().displayImage(al.getList()[0].getCover(),hotLtIv1);
+                        ImageLoader.getInstance().displayImage(al.getList()[1].getCover(),hotLtIv2);
+                        ImageLoader.getInstance().displayImage(al.getList()[2].getCover(),hotLtIv3);
+                        LinearLayout.LayoutParams lp =new  LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,1);
+                        hotCaiPuView.setLayoutParams(lp);
+                        hotContentLl.addView(hotCaiPuView);
+                    }
+
                     break;
                 case 2:
                     //连接网络失败

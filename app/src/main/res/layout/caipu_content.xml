@@ -20,7 +20,11 @@
                 android:id="@+id/caipu_menu_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"/>
+                android:background="#ffffff"
+                android:orientation="horizontal"
+                android:padding="10dp"/>
+
+            <include layout="@layout/hot_caipu"/>
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
