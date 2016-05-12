@@ -26,6 +26,7 @@
 
             <include layout="@layout/hot_caipu"/>
 
+            <include layout="@layout/like_caipu"/>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </android.support.v4.widget.SwipeRefreshLayout>

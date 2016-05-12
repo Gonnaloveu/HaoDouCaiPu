@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,16 +15,19 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.astuetz.PagerSlidingTabStrip;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
 import com.google.gson.Gson;
 import com.lsx.haodoucaipu.R;
+import com.lsx.haodoucaipu.adapter.LikeVPAdapter;
 import com.lsx.haodoucaipu.constant.Const;
 import com.lsx.haodoucaipu.gson.caipu.CaiPuJson;
 import com.lsx.haodoucaipu.gson.caipu.CaiPuJsonResult;
 import com.lsx.haodoucaipu.gson.caipu.CaiPuJsonResultAlbum;
 import com.lsx.haodoucaipu.gson.caipu.CaiPuJsonResultAlbumList;
+import com.lsx.haodoucaipu.gson.caipu.CaiPuJsonResultPerson;
 import com.lsx.haodoucaipu.gson.caipu.CaiPuJsonResultRecipeList;
 import com.lsx.haodoucaipu.gson.caipu.CaiPuJsonResultToolsList;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -56,6 +60,20 @@ public class CaiPuFragment extends BaseFragment {
     Button hotTitleBtn;
     @BindView(R.id.hot_content_ll)
     LinearLayout hotContentLl;
+    @BindView(R.id.search_btn_caipu)
+    Button searchBtnCaipu;
+    @BindView(R.id.feilei_btn_caipu)
+    Button feileiBtnCaipu;
+    @BindView(R.id.like_title_iv)
+    ImageView likeTitleIv;
+    @BindView(R.id.like_title_tv)
+    TextView likeTitleTv;
+    @BindView(R.id.like_title_btn)
+    Button likeTitleBtn;
+    @BindView(R.id.like_vp)
+    ViewPager likeVp;
+    @BindView(R.id.like_indicator)
+    PagerSlidingTabStrip likeIndicator;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -164,16 +182,22 @@ public class CaiPuFragment extends BaseFragment {
                         ImageView hotLtIv3 = (ImageView) hotCaiPuView.findViewById(R.id.hot_lt_iv3);
                         TextView hotTv = (TextView) hotCaiPuView.findViewById(R.id.hot_tv);
                         CaiPuJsonResultAlbumList al = albumLists.get(i);
-                        ImageLoader.getInstance().displayImage(al.getImg(),hotBigIv);
+                        ImageLoader.getInstance().displayImage(al.getImg(), hotBigIv);
                         hotTv.setText(al.getTitle());
-                        ImageLoader.getInstance().displayImage(al.getList()[0].getCover(),hotLtIv1);
-                        ImageLoader.getInstance().displayImage(al.getList()[1].getCover(),hotLtIv2);
-                        ImageLoader.getInstance().displayImage(al.getList()[2].getCover(),hotLtIv3);
-                        LinearLayout.LayoutParams lp =new  LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,1);
+                        ImageLoader.getInstance().displayImage(al.getList()[0].getCover(), hotLtIv1);
+                        ImageLoader.getInstance().displayImage(al.getList()[1].getCover(), hotLtIv2);
+                        ImageLoader.getInstance().displayImage(al.getList()[2].getCover(), hotLtIv3);
+                        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams
+                                .WRAP_CONTENT, 1);
                         hotCaiPuView.setLayoutParams(lp);
                         hotContentLl.addView(hotCaiPuView);
                     }
-
+                    /*猜你喜欢*/
+                    CaiPuJsonResultPerson caiPuJsonResultPerson=caiPuJsonResult.getPerson();
+                    likeTitleTv.setText(caiPuJsonResultPerson.getName());
+                    ImageLoader.getInstance().displayImage(caiPuJsonResultPerson.getIcon(),likeTitleIv);
+                    likeVp.setAdapter(new LikeVPAdapter(activity,caiPuJsonResultPerson.getTag()));
+                    likeIndicator.setViewPager(likeVp);
                     break;
                 case 2:
                     //连接网络失败

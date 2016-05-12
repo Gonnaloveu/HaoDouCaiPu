@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/convenientbanner/convenientbanner.iml" filepath="$PROJECT_DIR$/convenientbanner/convenientbanner.iml" />
       <module fileurl="file://$PROJECT_DIR$/loadingDrawable/loadingDrawable.iml" filepath="$PROJECT_DIR$/loadingDrawable/loadingDrawable.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pagerSlidingTabStrip/pagerSlidingTabStrip.iml" filepath="$PROJECT_DIR$/pagerSlidingTabStrip/pagerSlidingTabStrip.iml" />
     </modules>
   </component>
 </project>
